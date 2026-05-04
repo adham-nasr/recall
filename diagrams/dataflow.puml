@@ -1,0 +1,47 @@
+@startuml
+!define DFD_Process circle
+!define DFD_DataStore database
+
+title Data Flow Diagram
+
+' Define processes
+DFD_Process "PracticeMethods" as PM
+DFD_Process "PracticePlayground" as PPG
+DFD_Process "CategoryCard" as CC
+DFD_Process "CategoriesList" as CL
+DFD_Process "ProblemSet" as PS
+
+' Define data store
+DFD_DataStore "ProblemsContext" as PC
+
+' Data flows
+PM --> PPG : null\n(triggers practice mode)
+CC --> PPG : Category
+PC --> PPG : problem[]\n(problems for selected category)
+PC --> PS : category[]\n(all available categories)
+PC --> CC : categoryInfo\n(data for specific category)
+PS --> CL : category[]\n(pass categories to display)
+
+' Add notes for clarity
+note right of PM : Sends null trigger\nto start practice
+note right of PC : Central data store\ncontains all problems\nand categories
+note right of PS : Receives categories\nand forwards to\nCategoriesList
+note bottom of CC : Sends selected\ncategory to\nPracticePlayground
+
+' Styling
+skinparam component {
+    BackgroundColor #C8E6C9
+    BorderColor #2E7D32
+}
+
+skinparam database {
+    BackgroundColor #BBDEFB
+    BorderColor #0D47A1
+}
+
+skinparam note {
+    BackgroundColor #FFF9C4
+    BorderColor #F57F17
+}
+
+@enduml

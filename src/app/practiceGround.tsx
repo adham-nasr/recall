@@ -7,7 +7,7 @@ import { ActivityIndicator, IconButton  as UIButton} from 'react-native-paper'
 import CustomButton from '../components/CustomButton'
 import { COLORS } from '../colors'
 import { useQuery } from '@tanstack/react-query'
-import { getAllProblems, getData } from './api/getData'
+import { getAllProblems, getData, getProblems } from './api/getData'
 import { useLocalSearchParams } from 'expo-router';
 import { getRandomProblems } from '../utils'
 
@@ -65,9 +65,11 @@ const practiceGround = () => {
     //     explanation:"Linked list is a linear data structure"
     //   },
     // ]
+    const {category }  = useLocalSearchParams<{category:string}>();
+
     const query = useQuery({
-      queryKey:["data"],
-      queryFn:getData
+      queryKey:["problems",category],
+      queryFn:()=>getProblems(category)
     })
 
     const {data,error,isLoading} = query
@@ -77,35 +79,30 @@ const practiceGround = () => {
     const [status,setStatus] = useState<states[]>([])
 
 
-    const {category }  = useLocalSearchParams<{category:string}>();
 
 
 
     useEffect(()=>{
-      console.log("IN")
+      // console.log("IN")
       if(data)
-      {
-        if(category && typeof category === "string")
-          setProblems(data[category].problems)
-        else
-        {
-          setProblems(getRandomProblems(data))
-        }
-      }
+		  if(!category)
+			setProblems(getRandomProblems(data))
+		   else
+			   setProblems(data)
     },[data])
 
     
     const problem = problems.length ? problems[problemNumber] : null;
 
-    console.log("_-----------------------------")
-    console.log("isLoading")
-    console.log(isLoading)
-    console.log("data")
-    console.log(data)
-    console.log("problems")
-    console.log(problems)
-    console.log(problem)
-    console.log("____________")
+    // console.log("_-----------------------------")
+    // console.log("isLoading")
+    // console.log(isLoading)
+    // console.log("data")
+    // console.log(data)
+    // console.log("problems")
+    // console.log(problems)
+    // console.log(problem)
+    // console.log("____________")
     useLayoutEffect(()=>{
       if(problem)
         setStatus(problem.answers.map(()=>states.unselected));
@@ -152,6 +149,9 @@ const practiceGround = () => {
                 :
                 <Text style={styles.header}>#{problemNumber+1}</Text>
               }
+			  { problem.topic &&
+                  <Text style={{color:COLORS.textMuted,fontSize:20}}>{problem.topic}</Text>
+              }
               <Question statement={problem!.statement}/>
               <Answers key={`${problem.id}`} answers={problem.answers} status={status} selected={[selected,selectedHandler]}/>
               <View style={styles.footer}>
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     padding:20,
   },
   header:{
-    fontSize:26,
+    fontSize:30,
     fontWeight:"bold",
 
   },

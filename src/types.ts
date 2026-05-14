@@ -5,6 +5,11 @@ export type CategoryInfo = {
     name: category;
     count: number;  
 }
+export type apiCategoryInfo = {
+    id: number;
+    category: category;
+    size: number;
+}
 
 export type CategoryData = {
     id: number;
@@ -19,10 +24,11 @@ export type Problem = {
     category:category;
     explanation?:string;
     answers:Answer[];
+    topic?:string;
 }
 
 export type Answer = {
-    id:number;
+    id?:number;
     content:string;
     isCorrect:boolean;
 }

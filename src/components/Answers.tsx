@@ -10,7 +10,7 @@ const Answers = ({answers,status,selected}:{answers:Answer[],status:states[],sel
     <View style={styles.container}>
       <ScrollView>
         {answers.map((answer,ind)=>(
-        <AnswerOption key={answer.id} ind={ind} answer={answer} status={status[ind]} selected={selected} />
+        <AnswerOption key={ind} ind={ind} answer={answer} status={status[ind]} selected={selected} />
     )
     )}
       </ScrollView>

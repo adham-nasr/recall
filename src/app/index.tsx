@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import PracticeMethods from '../components/PracticeMethods'
 import Header from '../components/Header'
-import { COLORS } from '../colors'
+import { COLORS } from '../utils/colors'
 
 const index = () => {
   return (

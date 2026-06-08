@@ -2,9 +2,9 @@ import { FlatList, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import CategoryCard from '../components/CategoryCard'
 import { CategoryInfo } from '../types'
-import { COLORS } from '../colors'
+import { COLORS } from '../utils/colors'
 import { useQuery } from '@tanstack/react-query'
-import { getCategories } from './api/getData'
+import { getCategories } from '../api/getData'
 import { ActivityIndicator } from 'react-native-paper'
 
 const categories = () => {

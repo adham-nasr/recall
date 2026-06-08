@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Answer, states } from '../types'
 import { RadioButton } from 'react-native-paper'
-import { COLORS } from '../colors'
+import { COLORS } from '../utils/colors'
 const AnswerOption = ({ind,answer,status,selected}:{ind:number ,answer:Answer,status:states,selected:[number,Function]}) => {
     
 

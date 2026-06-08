@@ -1,4 +1,4 @@
-import { Problem } from "./types";
+import { Problem } from "../types";
 
 export function getRandomProblems(data:Problem[]):Problem[]{
 	const deepCopy = structuredClone(data);

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Answer } from '../types'
 import { states } from '../types'
 import AnswerOption from './AnswerOption'
-import { COLORS } from '../colors'
+import { COLORS } from '../utils/colors'
 const Answers = ({answers,status,selected}:{answers:Answer[],status:states[],selected:[number,Function]}) => {
 
   return (

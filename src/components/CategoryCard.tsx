@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useRouter } from 'expo-router';
 import { CategoryInfo } from '../types'
-import { COLORS } from '../colors';
+import { COLORS } from '../utils/colors';
 const CategoryCard = ({item}:{item:CategoryInfo}) => {
 
   const router = useRouter();

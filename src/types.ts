@@ -60,3 +60,18 @@ export type AuthContextType = {
   dispatch: Dispatch;
 };
 
+
+export type AttemptStat = {
+    solved:number,
+    category_id:string,
+    category:string
+}
+
+export type CategoryStat = apiCategoryInfo
+
+
+export type Stats = {
+    attemptsStats: AttemptStat[],
+    categoryStats: CategoryStat[]
+        
+}

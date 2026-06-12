@@ -1,8 +1,9 @@
+import { hsl } from "./helpers";
+
 const hue = 191;
 const sat = 60; // Use numbers for easy math
 
 // Helper to make HSL strings React Native can read
-const hsl = (h:number, s:number, l:number, a = 1) => `hsla(${h}, ${s}%, ${l}%, ${a})`;
 
 const colors = {
   primary500: hsl(hue, sat, 65),
@@ -25,6 +26,7 @@ const colors = {
   onPrimary: '#ffffff',
   focusRing: hsl(hue, sat, 50, 0.3),
 };
+
 
 // Map your aliases
 export const COLORS = {

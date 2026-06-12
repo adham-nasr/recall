@@ -8,9 +8,9 @@ import {
   Pressable,
 } from 'react-native';
 import { Formik } from 'formik';
-import CustomButton from './CustomButton';
 import { COLORS } from '../utils/colors';
 import * as Yup from 'yup';
+import CustomButton from './shared/CustomButton';
 
 interface formFields{
     name:string;

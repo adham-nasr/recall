@@ -1,22 +1,23 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import CategoryCard from '../components/CategoryCard'
-import { CategoryInfo } from '../types'
+import React, { useState } from 'react'
+import { category, CategoryInfo } from '../types'
 import { COLORS } from '../utils/colors'
-import { useQuery } from '@tanstack/react-query'
-import { getCategories } from '../api/getData'
+
 import { ActivityIndicator } from 'react-native-paper'
+
+import { useFetchCategories } from '../hooks/useFetchCategories'
+import CategorySmartCard from '../components/CategorySmartCard'
+import CategoryModal from '../features/CategoryModal'
 
 const categories = () => {
 
-    const query = useQuery({
-        queryKey:["categories"],
-        queryFn:getCategories
-    })
-
-    const {data,error,isLoading} = query
-
-    console.log(data)
+    const {data,error,isLoading} = useFetchCategories();
+    const [modalVisible,setModalVisible] = useState(false)
+    const [category,setCategory] = useState<category|null>(null)
+    const categoryClickHandler = (category:string)=>{
+        setModalVisible(true);
+        setCategory(category);
+    }
 
   return (
     <View style={styles.container}>
@@ -27,11 +28,14 @@ const categories = () => {
             error ? 
             <Text style={{fontSize:24,color:COLORS.danger,fontWeight:"bold"}}>{error.message}</Text>
              :
-             <FlatList
-                data={data}
-                renderItem={({item})=><CategoryCard item={item}/>}
-                keyExtractor={(item) => String(item.id)} 
-             />
+             <>
+                <FlatList
+                    data={data}
+                    renderItem={({item})=><CategorySmartCard categoryClickHandler={categoryClickHandler} item={item}/>}
+                    keyExtractor={(item) => String(item.id)} 
+                />
+                <CategoryModal category={category} modalVisible={modalVisible} setModalVisible={setModalVisible} />
+             </>
         }
       
     </View>

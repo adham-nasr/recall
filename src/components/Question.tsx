@@ -1,10 +1,11 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { COLORS } from '../utils/colors'
+import { getCategoryColor } from '../utils/helpers'
 
-const Question = ({statement} :{statement:string}) => {
+const Question = ({statement,category} :{statement:string,category:string}) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,{borderColor:getCategoryColor(category)}]}>
         <ScrollView>
             <Text style={styles.text}>{statement}</Text>
         </ScrollView>

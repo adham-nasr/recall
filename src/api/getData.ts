@@ -1,6 +1,8 @@
 import axios from "axios";
 import { baseUrl } from "../config";
 import { CategoryInfo, Problem , apiCategoryInfo, category } from "../types";
+import { practiceCriteria } from "../utils/constants";
+import { createQueryString } from "../utils/helpers";
 
 // export function getData(){
 //     return axios.get<Data>(`${baseUrl}/data`).then(res=>res.data)
@@ -35,43 +37,56 @@ export function getCategories():Promise<CategoryInfo[]> {
     )
 }
 
-export  async function getAllProblems():Promise<Problem[]>{
-    const response =  await axios.get<Record<string,Problem[]>[]>(`${baseUrl}/api/data/problems`)
-    const problems = response.data?.[0]?.problems
-    return problems;
-}
-
-export async function getProblemsByCategory(categoryName:category):Promise<Problem[]> {
-    const response = await axios.get<Problem[]>(`${baseUrl}/api/data/problems/${categoryName}`)
+export  async function getAllProblems(criteria:practiceCriteria,token?:string):Promise<Problem[]>{
+    const query = createQueryString({criteria})
+    const tokenHeader = token ? {   headers:{Authorization:"bearer "+token}   }
+                              : {}
+    console.log("criteria = " , criteria )
+    const response =  await axios.get<Problem[]>(`${baseUrl}/api/data/problems/${query}`,
+        tokenHeader
+    )
+    console.log("RESPONSE   --  == = ")
+    console.log(response.data.length)
     const problems = response.data
-    // console.log("PROBLEMS = ")
-    // console.log(problems)
     return problems;
 }
 
-export async function getProblems(category:string){
+export async function getProblemsByCategory(categoryName:category,criteria:practiceCriteria,token?:string):Promise<Problem[]> {
+    const query = createQueryString({criteria})
+    const tokenHeader = token ? {   headers:{Authorization:"bearer "+token}   }
+                              : {}
+    const response = await axios.get<Problem[]>(`${baseUrl}/api/data/problems/${categoryName}/${query}`,
+        tokenHeader
+    )
+    const problems = response.data
+    return problems;
+}
+
+
+
+export async function getProblems(category?:string,criteria:practiceCriteria = "all",token?:string){
     if(category)
-        return await getProblemsByCategory(category);
-    return await getAllProblems();
+        return await getProblemsByCategory(category,criteria,token);
+    return await getAllProblems(criteria,token);
 }
 
 
 export async function postAttempt(token:string,problem_id:string,state:boolean) {
     const response = await axios.post(`${baseUrl}/api/attempts`,
         {
-            problem_id:problem_id,
+            problemId:problem_id,
             state:state
-        }
-        ,
+        },
         {
             headers:{
                 Authorization:"bearer "+token
             }
         }
     )
+    return response;
 }
 
-export async function getAttempts() {
-    const response = await axios.get(`${baseUrl}/api/attempts`
-    )
-}
+// export async function getAttempts() {
+//     const response = await axios.get(`${baseUrl}/api/attempts`
+//     )
+// }

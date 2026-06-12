@@ -3,12 +3,13 @@ import React from 'react'
 import { useRouter } from 'expo-router';
 import { CategoryInfo } from '../types'
 import { COLORS } from '../utils/colors';
+import { paths } from '../utils/constants';
 const CategoryCard = ({item}:{item:CategoryInfo}) => {
 
   const router = useRouter();
 
   const pressHandler = ()=>{
-    router.navigate({pathname:"/practiceGround",params:{category:item.name}});
+    router.navigate({pathname:paths.PRACTICE_GROUND as any,params:{category:item.name}});
   }
 
   return (

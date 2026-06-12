@@ -26,7 +26,7 @@ const RootLayoutNav = () => {
         {/* Protected screens for logged-in users */}
         <Stack.Protected guard={user}>
           <Stack.Screen name='index'/>
-          <Stack.Screen name='practiceGround' />
+          <Stack.Screen name='practice' />
           <Stack.Screen name='categories' />
         </Stack.Protected>
 

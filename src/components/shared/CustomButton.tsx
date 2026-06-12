@@ -1,7 +1,6 @@
 import { DimensionValue, Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { COLORS } from '../utils/colors'
-
+import { COLORS } from '../../utils/colors'
 const CustomButton = ({title,pressHandler,customStyles={},textStyles={}, bgColor=COLORS.primary}:{title:string,pressHandler:any,customStyles?:{},textStyles?:{},bgColor?:string}) => {
   return (
     <Pressable style={{...styles.button , ...customStyles  , backgroundColor:bgColor}} onPress={pressHandler}>
@@ -22,6 +21,6 @@ const styles = StyleSheet.create({
     },
     buttonText:{
       color:COLORS.onPrimary,
-      fontSize:16
+      fontSize:18,
     }
 })
